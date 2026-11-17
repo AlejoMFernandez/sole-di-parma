@@ -64,7 +64,7 @@ estado(); setInterval(estado, 60000);
 function abrirPagina() {
   if (d.classList.contains('abierta')) return;
   d.classList.add('lista');
-  setTimeout(() => { d.classList.add('abierta'); }, 300);
+  setTimeout(() => { d.classList.add('abierta'); }, 240);
   setTimeout(() => { $('.intro')?.remove(); }, 950);
   setTimeout(diferidas, 700);
 }
@@ -92,9 +92,9 @@ if (d.classList.contains('con-intro')) {
   const espera = Promise.all([
     document.fonts ? document.fonts.ready : 0,
     hero && !hero.complete ? new Promise((r) => { hero.addEventListener('load', r, { once: true }); hero.addEventListener('error', r, { once: true }); }) : 0,
-    new Promise((r) => setTimeout(r, celu() ? 950 : 1350)),
+    new Promise((r) => setTimeout(r, celu() ? 700 : 1300)),
   ]);
-  Promise.race([espera, new Promise((r) => setTimeout(r, celu() ? 1450 : 2100))]).then(abrirPagina);
+  Promise.race([espera, new Promise((r) => setTimeout(r, celu() ? 1150 : 2000))]).then(abrirPagina);
 } else { d.classList.add('abierta'); addEventListener('load', diferidas, { once: true }); }
 function diferidas() { $$('img[data-src]').forEach((im) => { im.srcset = im.dataset.srcset || ''; im.src = im.dataset.src; im.removeAttribute('data-src'); }); }
 
@@ -140,8 +140,8 @@ const ha = $('.ha');
 {
   const bt = $('.pizarra'), menu = $('#menu');
   $$('.menu-l li').forEach((li, i) => li.style.setProperty('--i', i));
-  const abrir = () => { menu.hidden = false; bt.setAttribute('aria-expanded', 'true'); d.style.overflow = 'hidden'; $('.menu-x').focus(); };
-  const cerrar = () => { menu.hidden = true; bt.setAttribute('aria-expanded', 'false'); d.style.overflow = ''; };
+  const abrir = () => { menu.hidden = false; bt.setAttribute('aria-expanded', 'true'); d.style.overflow = 'hidden'; d.classList.add('menu-on'); $('.menu-x').focus(); };
+  const cerrar = () => { menu.hidden = true; bt.setAttribute('aria-expanded', 'false'); d.style.overflow = ''; d.classList.remove('menu-on'); };
   bt.addEventListener('click', abrir);
   $('.menu-x').addEventListener('click', () => { cerrar(); bt.focus(); });
   $$('.menu-l a').forEach((a) => a.addEventListener('click', cerrar));
@@ -166,7 +166,7 @@ fetch('cliente.json', { cache: 'no-cache' }).then((r) => r.json()).then((c) => {
 
 const arrancarKit = () => import('../kit/kit.js?v=1').then(({ initKit }) => initKit({
   config: 'cliente.json',
-  imagenes: { lqip: 'img/lqip.json', selector: '.collage img, .nav-foto img, .fechas img, .pk-caja img, .plato-sol img' },
+  imagenes: { lqip: 'img/lqip.json', selector: '.collage img, .nav-foto img, .fechas img, .pk-caja img, .plato-sol img, .mo-foto img, .pz img' },
   carrito: { label: 'Tu cartoccio', icono: '<svg viewBox="0 0 24 24"><path d="M4 9h16l-2 11H6L4 9Z"/><path d="M8 9l4-5 4 5"/></svg>' },
   badge: true,
 })).then(async (k) => {
@@ -187,91 +187,59 @@ const th = (p, cls = 'th') => p?.foto ? `<span class="${cls} ph"><img src="${esc
    WOW: la teglia al corte
    ========================================================= */
 const SAB = {
-  cherry: { id: 'foc-cherry', n: 'Cherrys, olivas y romero', d: 'Cherrys, olivas verdes, romero y muzza sobre masa madre y harina orgánica.', img: 'img/t-cherry.webp', promo: true },
-  pomodoro: { id: 'foc-pomodoro', n: 'Pomodoro, pesto y cherrys', d: 'Pomodoro, muzza, pesto de albahaca y cherrys.', img: 'img/t-pomodoro.webp', promo: true },
-  pera: { id: 'foc-pera', n: 'Pera, queso azul y nueces', d: 'Pera, queso azul, nueces y un hilo de syrup. El clásico de la casa.', img: 'img/t-pera.webp', promo: true },
-  especial: { id: 'foc-especial', n: 'Especial de stracciatella', d: 'Pomodoro, muzza, pesto, cherrys, stracciatella con limón, syrup y parmesano.', img: 'img/t-especial.webp', promo: false },
+  cherry: { id: 'foc-cherry', c: 'Cherrys', img: 'img/t-cherry.webp', promo: true },
+  pomodoro: { id: 'foc-pomodoro', c: 'Pomodoro', img: 'img/t-pomodoro.webp', promo: true },
+  pera: { id: 'foc-pera', c: 'Pera', img: 'img/t-pera.webp', promo: true },
+  especial: { id: 'foc-especial', c: 'Especial', img: 'img/t-especial.webp', promo: false },
 };
 const ORDEN = ['cherry', 'pomodoro', 'pera', 'especial'];
-pintores.push(() => ORDEN.forEach((s) => { const p = prod(SAB[s].id); const li = $(`.sabores li[data-s="${s}"] i`); if (p && li) li.textContent = plata(p.precio); }));
-const teglia = $('#teglia'), mesa = $('#mesa'), globo = $('.globo');
-const ratio = {};
+const nombreS = (s) => prod(SAB[s].id)?.nombre || SAB[s].c;
+const teglia = $('#teglia'), mesa = $('#mesa'), ficha = $('.ficha');
 let sel = null;
-ORDEN.forEach((s, col) => {
-  for (let r = 0; r < 3; r++) {
-    const b = document.createElement('button');
-    b.type = 'button'; b.className = 'pz'; b.dataset.s = s; b.dataset.r = r;
-    b.style.gridColumn = col + 1; b.style.gridRow = r + 1;
-    b.setAttribute('aria-label', `Porción de ${SAB[s].n}`);
-    b.innerHTML = '<svg aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" rx="8" pathLength="1"/></svg>';
-    teglia.appendChild(b);
-  }
+ORDEN.forEach((s) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'pz'; b.dataset.s = s;
+  b.innerHTML = `<img src="${SAB[s].img}" alt="" width="560" height="560" loading="lazy" decoding="async"><span class="pz-n"><b></b><span></span></span><span class="pz-c" aria-hidden="true"></span>`;
+  teglia.appendChild(b);
 });
-function encuadrar() {
-  ORDEN.forEach((s) => {
-    const R = ratio[s]; if (!R) return;
-    const pzs = $$(`.pz[data-s="${s}"]`, teglia); if (!pzs.length) return;
-    const W = pzs[0].offsetWidth, rowH = pzs[0].offsetHeight, gap = parseFloat(getComputedStyle(teglia).rowGap) || 0;
-    const H = rowH * 3 + gap * 2;
-    let w = W, h = W / R; if (h < H) { h = H; w = H * R; }
-    pzs.forEach((pz) => {
-      if (pz.classList.contains('vacia')) return;
-      const r = +pz.dataset.r;
-      pz.style.backgroundImage = `url(${SAB[s].img})`;
-      pz.style.backgroundSize = `${w}px ${h}px`;
-      pz.style.backgroundPosition = `${(W - w) / 2}px ${(H - h) / 2 - r * (rowH + gap)}px`;
-    });
-  });
+teglia.classList.add('invita');
+pintores.push(() => ORDEN.forEach((s) => {
+  const pz = $(`.pz[data-s="${s}"]`, teglia), p = prod(SAB[s].id);
+  $('.pz-n b', pz).textContent = plata(p?.precio ?? (SAB[s].promo ? 6500 : 9000));
+  $('.pz-n span', pz).textContent = nombreS(s);
+  pz.setAttribute('aria-label', `Porción de ${nombreS(s)}`);
+  if (pz === sel) mostrar(s);
+}));
+function mostrar(s) {
+  const p = prod(SAB[s].id);
+  $('#fi-n').textContent = nombreS(s);
+  $('.fi-d').textContent = s === 'especial' ? 'Pomodoro, muzza, pesto, cherrys, stracciatella con limón, syrup y parmesano.' : (p?.descripcion || 'Focaccia al corte de masa madre y harina orgánica.');
+  $('.fi-promo').textContent = SAB[s].promo ? 'entra en la promo de 2' : 'no entra en la promo';
+  $('.fi-p').textContent = plata(p?.precio ?? (SAB[s].promo ? 6500 : 9000));
 }
-new IntersectionObserver((es, o) => {
-  if (!es.some((e) => e.isIntersecting)) return; o.disconnect();
-  ORDEN.forEach((s) => { const im = new Image(); im.onload = () => { ratio[s] = im.naturalWidth / im.naturalHeight; encuadrar(); }; im.src = SAB[s].img; });
-}, { rootMargin: '600px 0px' }).observe(teglia);
-addEventListener('resize', () => { encuadrar(); if (sel) ubicarGlobo(sel); }, { passive: true });
-
-function ubicarGlobo(pz) {
-  const m = mesa.getBoundingClientRect(), p = pz.getBoundingClientRect();
-  const gw = globo.offsetWidth, gh = globo.offsetHeight;
-  const centro = p.left - m.left + p.width / 2;
-  const left = Math.max(8, Math.min(m.width - gw - 8, centro - gw / 2));
-  const abajo = +pz.dataset.r < 2;
-  const top = abajo ? p.bottom - m.top + 16 : p.top - m.top - gh - 16;
-  globo.classList.toggle('abajo', abajo); globo.classList.toggle('arriba', !abajo);
-  globo.style.setProperty('--gx', left + 'px'); globo.style.setProperty('--gy', top + 'px');
-  globo.style.setProperty('--px', Math.max(22, Math.min(gw - 22, centro - left)) + 'px');
-}
-function cerrarGlobo() { globo.hidden = true; teglia.classList.remove('atenuar'); if (sel) sel.classList.remove('alzada'); sel = null; }
 teglia.addEventListener('click', (e) => {
-  const pz = e.target.closest('.pz'); if (!pz || pz.classList.contains('vacia')) return;
-  if (sel === pz) return cerrarGlobo();
+  const pz = e.target.closest('.pz'); if (!pz) return;
+  teglia.classList.remove('invita');
   if (sel) sel.classList.remove('alzada');
   sel = pz; pz.classList.add('alzada'); teglia.classList.add('atenuar');
-  const s = SAB[pz.dataset.s], p = prod(s.id);
-  $('#gl-n').textContent = s.n; $('.gl-d', globo).textContent = p?.descripcion && pz.dataset.s === 'especial' ? p.descripcion : s.d;
-  $('.gl-p', globo).textContent = plata(p?.precio ?? (s.promo ? 6500 : 9000));
-  globo.hidden = false; globo.style.animation = 'none'; void globo.offsetWidth; globo.style.animation = '';
-  ubicarGlobo(pz);
+  mostrar(pz.dataset.s);
+  $('.fi-inv').hidden = true; const d = $('.fi-dato'); d.hidden = true; void d.offsetWidth; d.hidden = false;
+  if (celu() && ficha.getBoundingClientRect().bottom > innerHeight) ficha.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
 });
-$('.x', globo).addEventListener('click', (e) => { e.stopPropagation(); cerrarGlobo(); });
-document.addEventListener('click', (e) => { if (!globo.hidden && !globo.contains(e.target) && !teglia.contains(e.target)) cerrarGlobo(); });
-addEventListener('keydown', (e) => { if (e.key === 'Escape' && !globo.hidden) cerrarGlobo(); });
 
 const PROMO = ['foc-cherry', 'foc-pomodoro', 'foc-pera'];
-$('[data-cortar]', globo).addEventListener('click', async (e) => {
+$('[data-cortar]').addEventListener('click', async (e) => {
   e.stopPropagation(); if (!sel) return;
   const pz = sel, s = pz.dataset.s;
   const r = pz.getBoundingClientRect(), dst = $('.ca-lista').getBoundingClientRect();
   if (!reduce) {
     const v = document.createElement('div'); v.className = 'vuela';
-    Object.assign(v.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', backgroundImage: pz.style.backgroundImage, backgroundSize: pz.style.backgroundSize, backgroundPosition: pz.style.backgroundPosition });
+    Object.assign(v.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', backgroundImage: `url(${SAB[s].img})`, backgroundSize: 'cover' });
     document.body.appendChild(v);
-    requestAnimationFrame(() => requestAnimationFrame(() => { v.style.transform = `translate(${dst.left + 30 - r.left}px,${dst.top - 10 - r.top}px) scale(.25) rotate(-12deg)`; v.style.opacity = '.3'; }));
+    requestAnimationFrame(() => requestAnimationFrame(() => { v.style.transform = `translate(${dst.left + 30 - r.left}px,${dst.top - 10 - r.top}px) scale(.22) rotate(-12deg)`; v.style.opacity = '.3'; }));
     setTimeout(() => v.remove(), 760);
+    pz.classList.remove('cortada'); void pz.offsetWidth; pz.classList.add('cortada');
   }
-  pz.classList.remove('alzada'); pz.classList.add('vacia'); pz.disabled = true; pz.setAttribute('aria-label', 'Porción vendida');
-  ['backgroundImage', 'backgroundSize', 'backgroundPosition'].forEach((k) => (pz.style[k] = ''));
-  if (!$$(`.pz[data-s="${s}"]:not(.vacia)`, teglia).length) $(`.sabores li[data-s="${s}"]`).classList.add('agotada');
-  sel = null; globo.hidden = true; teglia.classList.remove('atenuar');
   const k = kit || await kitP;
   if (s === 'especial') k.carrito.agregar('foc-especial', 1);
   else {
@@ -282,15 +250,19 @@ $('[data-cortar]', globo).addEventListener('click', async (e) => {
     } else k.carrito.agregar(SAB[s].id, 1);
   }
 });
-const CORTO = { cherry: 'Cherrys', pomodoro: 'Pomodoro', pera: 'Pera' };
 function pintarCartoccio() {
   if (!kit) return;
   const ls = kit.carrito.lineas.filter((l) => l.id === 'promo-2-focaccias' || l.id.startsWith('foc-'));
-  const lista = $('.ca-lista');
+  const lista = $('.ca-lista'), cuenta = {};
+  ls.forEach((l) => {
+    if (l.id === 'promo-2-focaccias') [l.opc?.primera, l.opc?.segunda].forEach((x) => { if (x) cuenta[x] = (cuenta[x] || 0) + l.cant; });
+    else { const x = l.id.slice(4); cuenta[x] = (cuenta[x] || 0) + l.cant; }
+  });
   lista.innerHTML = ls.length ? ls.map((l) => {
-    const n = l.id === 'promo-2-focaccias' ? `Promo: ${CORTO[l.opc?.primera] || ''} + ${CORTO[l.opc?.segunda] || ''}` : (SAB[l.id.slice(4)]?.n || prod(l.id)?.nombre || '');
+    const n = l.id === 'promo-2-focaccias' ? `Promo: ${SAB[l.opc?.primera]?.c || ''} + ${SAB[l.opc?.segunda]?.c || ''}` : (SAB[l.id.slice(4)]?.c || prod(l.id)?.nombre || '');
     return `<li><b>${l.cant}</b>${esc(n)}</li>`;
   }).join('') : '<li class="ca-vacio">Todavía no cortaste nada</li>';
+  ORDEN.forEach((s) => { const c = $(`.pz[data-s="${s}"] .pz-c`, teglia); c.textContent = cuenta[s] ? 'x' + cuenta[s] : ''; c.classList.toggle('on', !!cuenta[s]); });
   const tot = ls.reduce((a, l) => a + (prod(l.id)?.precio || 0) * l.cant, 0);
   $('.ca-tot b').textContent = plata(tot);
   $('.sello').classList.toggle('on', ls.some((l) => l.id === 'promo-2-focaccias'));
@@ -400,7 +372,8 @@ function htmlCat(cid) {
       ${ped ? `<div class="it-q">${qty(p.id)}</div>` : ''}
     </li>`).join('')}</ul></div>`;
 }
-const visiblesCarta = (g) => (celu() && g.cats.length > 1 ? [g.cats[si]] : g.cats);
+const porSub = (g) => g.cats.length > (celu() ? 1 : 2);
+const visiblesCarta = (g) => (porSub(g) ? [g.cats[si]] : g.cats);
 function htmlGrupo(g) { return visiblesCarta(g).map(htmlCat).join(''); }
 function pintarCarta() {
   if (!CATS.length) return;
@@ -408,12 +381,12 @@ function pintarCarta() {
   gr.innerHTML = GRUPOS.map((g, i) => `<button type="button" role="tab" aria-selected="${i === gi}" data-g="${i}">${esc(g.n)}</button>`).join('');
   const g = GRUPOS[gi];
   sb.innerHTML = (g.subs || []).map((s, i) => `<button type="button" role="tab" aria-selected="${i === si}" data-s="${i}">${esc(s)}</button>`).join('');
-  sb.style.visibility = g.subs ? 'visible' : 'hidden';
+  sb.style.visibility = g.subs && porSub(g) ? 'visible' : 'hidden';
   // alto reservado: el del grupo (o parte) más largo en esta pantalla
   const tmp = document.createElement('div'); tmp.className = 'hoja-cuerpo';
   tmp.style.cssText = `position:absolute;visibility:hidden;min-height:0;width:${cuerpo.clientWidth}px`;
   cuerpo.parentNode.appendChild(tmp); let max = 0;
-  GRUPOS.forEach((G) => { const partes = celu() && G.cats.length > 1 ? G.cats.map((c) => [c]) : [G.cats]; partes.forEach((cs) => { tmp.innerHTML = cs.map(htmlCat).join(''); max = Math.max(max, tmp.offsetHeight); }); });
+  GRUPOS.forEach((G) => { const partes = porSub(G) ? G.cats.map((c) => [c]) : [G.cats]; partes.forEach((cs) => { tmp.innerHTML = cs.map(htmlCat).join(''); max = Math.max(max, tmp.offsetHeight); }); });
   tmp.remove(); cuerpo.style.setProperty('--hc-h', max + 'px');
   cuerpo.innerHTML = htmlGrupo(g); marcarCarga(cuerpo);
   const [ant, sig] = $$('.pag');

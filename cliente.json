@@ -305,7 +305,8 @@
     "descripcion": "Focaccia al corte de masa madre y harina orgánica.",
     "precio": 6500,
     "orden": 1,
-    "disponible": true
+    "disponible": true,
+    "foto": "img/carta/foc-cherry.webp"
    },
    {
     "id": "foc-pomodoro",
@@ -1420,7 +1421,8 @@
     "descripcion": "Almendras, nueces pecán, naranjitas confitadas caseras y pasas de uva rubias y negras.",
     "precio": null,
     "orden": 3,
-    "disponible": true
+    "disponible": true,
+    "foto": "img/carta/pan-dulce.webp"
    },
    {
     "id": "pan-dulce-pistacho",
