@@ -85,6 +85,23 @@ function armarIntro() {
   $$('line', g).forEach((l, i) => { l.style.animationDelay = (0.32 + i * 0.022) + 's'; l.style.strokeWidth = (3.2 * k).toFixed(2); });
   const il = $('.intro-logo'); Object.assign(il.style, { left: logo.left + 'px', top: logo.top + 'px', width: logo.width + 'px' });
 }
+/* el sol se apoya siempre en el horizonte: las puntas de abajo de los rayos quedan justo arriba de la línea
+   y las de arriba no tocan el estado; si no entra, el sol se achica */
+function ubicarSol() {
+  const sol = $('.ha-sol'), st = $('.ha-stage'); if (!sol || !st) return;
+  sol.style.removeProperty('--d'); sol.style.removeProperty('top');
+  const S = st.getBoundingClientRect(), dCss = sol.offsetWidth, yCss = sol.getBoundingClientRect().top - S.top + dCss / 2;
+  const k = parseFloat(getComputedStyle($('.ha-rayos')).width) / dCss / 2 || 0.8;
+  const techo = $('.ha-top').getBoundingClientRect().bottom - S.top + 14;
+  const piso = $('.horizonte').getBoundingClientRect().top - S.top - 6;
+  const dMax = (piso - techo) / (2 * k);
+  const dd = Math.max(120, Math.min(dCss, dMax));
+  sol.style.setProperty('--d', dd + 'px');
+  // en el celu queda donde estaba (más arriba, sin pisar las ilustraciones) si ya no toca la línea
+  sol.style.top = (celu() ? Math.min(yCss, piso - k * dd) : piso - k * dd) + 'px';
+}
+ubicarSol();
+addEventListener('resize', ubicarSol, { passive: true });
 if (d.classList.contains('con-intro')) {
   d.classList.add('desde-intro');
   armarIntro();

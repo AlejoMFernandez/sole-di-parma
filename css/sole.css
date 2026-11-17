@@ -340,7 +340,7 @@ main > section{overflow-x:clip}
 .mn-it .th{grid-row:1/3;width:56px;height:56px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 2px var(--arancio)}
 .mn-it .th img{width:100%;height:100%;object-fit:cover}
 .mn-it .th.no{box-shadow:none;background:none}
-.mn-n{display:flex;align-items:baseline;gap:10px;font:400 16px/1.25 var(--f-s);color:var(--mattone-t);text-transform:uppercase;letter-spacing:.02em}
+.mn-n{display:flex;align-items:baseline;gap:10px;font:400 16px/1.25 var(--f-s);color:var(--mattone-t);text-transform:uppercase;letter-spacing:.02em;padding-right:6px}
 .mn-n i{flex:1;border-bottom:2px dotted #e5582b80;transform:translateY(-4px);min-width:16px}
 .mn-n b{font-weight:400;flex:none}
 .mn-d{font-size:14.5px;line-height:1.45}
@@ -409,7 +409,7 @@ main > section{overflow-x:clip}
 .pickup{padding:var(--aire) var(--pad)}
 .pk-c{width:min(100%,var(--ancho));margin:0 auto;display:grid;gap:40px;align-items:center}
 .pk-caja{margin:0;rotate:-2.5deg;border-radius:16px;overflow:hidden;box-shadow:0 0 0 2.5px var(--arancio),0 30px 50px -30px #3b2418aa}
-.pk-caja img{width:100%;height:auto}
+.pk-caja img{width:100%;height:auto;object-fit:cover}
 .pk-tx{display:grid;gap:18px;justify-items:start}
 .pk-tx h2{font:900 clamp(40px,7vw,72px)/1.02 var(--f-t);color:var(--arancio);max-width:14ch}
 .pasos{list-style:none;margin:0;padding:0;display:grid;gap:14px}
