@@ -1,0 +1,1437 @@
+{
+ "$schema": "https://raw.githubusercontent.com/AlejoMFernandez/kit-demos/main/docs/cliente.schema.json",
+ "id": "sole-di-parma",
+ "nombre": "Sole di Parma",
+ "pais": "AR",
+ "idioma": "es",
+ "modo": "demo",
+ "demoVersion": 1,
+ "whatsapp": "5491136698412",
+ "instagram": "solediparma",
+ "prefijoPedido": "SP",
+ "marca": {
+  "logo": "img/logo.svg",
+  "logoPanel": "img/logo-crema.svg",
+  "logoClaro": "img/logo-crema.svg",
+  "isotipo": "img/isotipo.svg",
+  "favicon": "img/favicon.png",
+  "colores": {
+   "fondo": "#FBF3EA",
+   "superficie": "#FFFFFF",
+   "texto": "#3B2418",
+   "primario": "#C2461C",
+   "acento": "#1F3E8C",
+   "borde": "#EBD6C8"
+  },
+  "fuentes": {
+   "titulos": "'Londrina Solid', Impact, sans-serif",
+   "texto": "'Literata', Georgia, serif",
+   "googleFonts": "",
+   "css": "css/fuentes.css"
+  },
+  "estilo": {
+   "forma": "redondeada",
+   "sombra": "suave",
+   "borde": "2px",
+   "mayusculas": false
+  }
+ },
+ "modulos": {
+  "carta": true,
+  "carrito": true,
+  "reservas": true,
+  "admin": true
+ },
+ "horarios": {
+  "lun": [
+   [
+    "08:30",
+    "20:00"
+   ]
+  ],
+  "mar": [
+   [
+    "08:30",
+    "20:00"
+   ]
+  ],
+  "mie": [
+   [
+    "08:30",
+    "20:00"
+   ]
+  ],
+  "jue": [
+   [
+    "08:30",
+    "20:00"
+   ]
+  ],
+  "vie": [
+   [
+    "08:30",
+    "23:00"
+   ]
+  ],
+  "sab": [
+   [
+    "08:30",
+    "23:00"
+   ]
+  ],
+  "dom": [
+   [
+    "08:30",
+    "20:00"
+   ]
+  ]
+ },
+ "direccion": "Eduardo Madero 537, Tigre",
+ "reservas": {
+  "capacidad": 40,
+  "maxPersonas": 8,
+  "anticipacionMin": 120,
+  "diasAdelante": 30,
+  "servicios": [
+   {
+    "id": "noche",
+    "nombre": "Noche de pastas",
+    "dias": [
+     "vie",
+     "sab"
+    ],
+    "tandas": [
+     {
+      "nombre": "Noche de pastas",
+      "turnos": [
+       "20:00",
+       "20:30",
+       "21:00",
+       "21:30",
+       "22:00"
+      ]
+     }
+    ]
+   }
+  ],
+  "extras": [
+   {
+    "id": "cumple",
+    "label": "Venimos a festejar un cumple"
+   }
+  ]
+ },
+ "pedidos": {
+  "salidas": [
+   "mercadopago",
+   "whatsapp"
+  ],
+  "tipos": [
+   "retiro"
+  ],
+  "envio": 0,
+  "minimo": 0,
+  "sinPrecio": "a_confirmar",
+  "retiroHoy": {
+   "cadaMin": 15,
+   "prepMin": 20,
+   "asap": true
+  },
+  "encargo": {
+   "anticipacionHoras": 24,
+   "diasAdelante": 40,
+   "franjas": [
+    {
+     "id": "manana",
+     "nombre": "Mañana",
+     "desde": "08:30",
+     "hasta": "13:00"
+    },
+    {
+     "id": "tarde",
+     "nombre": "Tarde",
+     "desde": "13:00",
+     "hasta": "20:00"
+    }
+   ]
+  }
+ },
+ "giftcards": {
+  "nombre": "Gift card",
+  "prefijo": "SOLE",
+  "validezDias": 90,
+  "montos": [
+   15000,
+   25000,
+   40000
+  ],
+  "min": 10000,
+  "max": 150000
+ },
+ "pagos": {
+  "mercadopago": {
+   "endpoint": "https://kit-demos-amf.vercel.app/api/mp-preference",
+   "modo": "sandbox"
+  }
+ },
+ "textos": {
+  "tuPedido": "Tu cartoccio",
+  "verPedido": "Ver tu cartoccio",
+  "carritoVacio": "Tu cartoccio está vacío.",
+  "carritoVacioSub": "Cortá una focaccia o sumá algo del mostrador.",
+  "pedidoListo": "¡Listo! Te esperamos en Madero 537",
+  "enviarPedido": "Pedir para retirar",
+  "seguir": "Seguir mirando",
+  "agregar": "Sumar",
+  "reservarMesa": "Reservá para la noche de pastas"
+ },
+ "cartaQR": {
+  "textos": {
+   "titulo": "La carta de Sole"
+  }
+ },
+ "carta": {
+  "categorias": [
+   {
+    "id": "focaccias",
+    "nombre": "Focaccias al corte",
+    "orden": 1,
+    "bajada": "Con harina orgánica. Ver disponibilidad en mostrador. Promo 2 × $11.000 (la especial no entra)."
+   },
+   {
+    "id": "sandwiches",
+    "nombre": "Sandwiches",
+    "orden": 2,
+    "bajada": "Salen con papitas al horno, en pan de focaccia de masa madre y harina orgánica."
+   },
+   {
+    "id": "antipasti",
+    "nombre": "Antipasti",
+    "orden": 3
+   },
+   {
+    "id": "pasticceria",
+    "nombre": "Pasticceria",
+    "orden": 4,
+    "bajada": "Ver disponibilidad en mostrador."
+   },
+   {
+    "id": "tortas",
+    "nombre": "Tortas & postres",
+    "orden": 5,
+    "bajada": "Porciones. Ver disponibilidad en mostrador."
+   },
+   {
+    "id": "panes",
+    "nombre": "Panes",
+    "orden": 6,
+    "bajada": "Harinas orgánicas, sin conservantes ni aditivos."
+   },
+   {
+    "id": "brunch",
+    "nombre": "Brunch",
+    "orden": 7,
+    "bajada": "Todo el día, para comer en Sole."
+   },
+   {
+    "id": "cafe-chico",
+    "nombre": "Café · taza o vaso chico",
+    "orden": 8
+   },
+   {
+    "id": "cafe-mediano",
+    "nombre": "Café · taza mediana",
+    "orden": 9
+   },
+   {
+    "id": "cafe-grande",
+    "nombre": "Café · taza grande",
+    "orden": 10
+   },
+   {
+    "id": "cafe-frio",
+    "nombre": "Café · fríos en vaso de vidrio",
+    "orden": 11
+   },
+   {
+    "id": "jugos",
+    "nombre": "Jugos",
+    "orden": 12
+   },
+   {
+    "id": "sin-alcohol",
+    "nombre": "Bebidas sin alcohol",
+    "orden": 13
+   },
+   {
+    "id": "con-alcohol",
+    "nombre": "Bebidas con alcohol",
+    "orden": 14
+   },
+   {
+    "id": "noche-antipasti",
+    "nombre": "Noche · antipasti",
+    "orden": 15,
+    "bajada": "Viernes y sábados de 20:00 a 23:00 hs."
+   },
+   {
+    "id": "noche-pastas",
+    "nombre": "Noche · pastas italianas 100% sémola",
+    "orden": 16,
+    "bajada": "Viernes y sábados de 20:00 a 23:00 hs."
+   },
+   {
+    "id": "noche-bonus",
+    "nombre": "Noche · bonus track",
+    "orden": 17
+   },
+   {
+    "id": "navidad",
+    "nombre": "Navidad",
+    "orden": 18,
+    "especial": true,
+    "desde": "2026-12-01",
+    "hasta": "2026-12-24",
+    "avisoDias": 45,
+    "anticipacionHoras": 48,
+    "bajada": "Cajas y pan dulce de la casa para las fiestas. Se encargan y se retiran en el local."
+   }
+  ],
+  "productos": [
+   {
+    "id": "foc-cherry",
+    "nombre": "Cherrys, olivas verdes, romero y muzza",
+    "categoria": "focaccias",
+    "descripcion": "Focaccia al corte de masa madre y harina orgánica.",
+    "precio": 6500,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "foc-pomodoro",
+    "nombre": "Pomodoro, muzza, pesto y cherrys",
+    "categoria": "focaccias",
+    "descripcion": "Focaccia al corte de masa madre y harina orgánica.",
+    "precio": 6500,
+    "orden": 2,
+    "disponible": true,
+    "foto": "img/carta/foc-pomodoro.webp"
+   },
+   {
+    "id": "foc-pera",
+    "nombre": "Pera, queso azul, nueces y syrup",
+    "categoria": "focaccias",
+    "descripcion": "Focaccia al corte de masa madre y harina orgánica.",
+    "precio": 6500,
+    "orden": 3,
+    "disponible": true,
+    "foto": "img/carta/foc-pera.webp"
+   },
+   {
+    "id": "foc-especial",
+    "nombre": "Especial",
+    "categoria": "focaccias",
+    "descripcion": "Pomodoro, muzza, pesto, cherrys, stracciatella con limón, syrup y parmesano. No entra en la promo.",
+    "precio": 9000,
+    "orden": 4,
+    "disponible": true,
+    "foto": "img/carta/foc-especial.webp"
+   },
+   {
+    "id": "promo-2-focaccias",
+    "nombre": "Promo 2 focaccias al corte",
+    "categoria": "focaccias",
+    "descripcion": "Elegí las dos porciones (la especial no entra).",
+    "precio": 11000,
+    "orden": 5,
+    "disponible": true,
+    "foto": "img/carta/foc-pera.webp",
+    "opciones": [
+     {
+      "id": "primera",
+      "nombre": "Primera porción",
+      "valores": [
+       {
+        "id": "cherry",
+        "nombre": "Cherrys y olivas"
+       },
+       {
+        "id": "pomodoro",
+        "nombre": "Pomodoro y pesto"
+       },
+       {
+        "id": "pera",
+        "nombre": "Pera y queso azul"
+       }
+      ]
+     },
+     {
+      "id": "segunda",
+      "nombre": "Segunda porción",
+      "valores": [
+       {
+        "id": "cherry",
+        "nombre": "Cherrys y olivas"
+       },
+       {
+        "id": "pomodoro",
+        "nombre": "Pomodoro y pesto"
+       },
+       {
+        "id": "pera",
+        "nombre": "Pera y queso azul"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "sw-pollo",
+    "nombre": "Pollo",
+    "categoria": "sandwiches",
+    "descripcion": "Pollo, tonkatsu, repollo, lechuga y queso crema.",
+    "precio": 20000,
+    "orden": 1,
+    "disponible": true,
+    "foto": "img/carta/sw-pollo.webp",
+    "etiquetas": [
+     "casa"
+    ]
+   },
+   {
+    "id": "sw-veggie",
+    "nombre": "Veggie",
+    "categoria": "sandwiches",
+    "descripcion": "Verduras asadas, paté de hongos, pesto de rúcula y pickle de zanahorias.",
+    "precio": 18000,
+    "orden": 2,
+    "disponible": true,
+    "etiquetas": [
+     "veggie"
+    ]
+   },
+   {
+    "id": "sw-prosciutto",
+    "nombre": "Prosciutto",
+    "categoria": "sandwiches",
+    "descripcion": "Jamón crudo, bocconcino, pesto de albahaca, rúcula y tomates confitados.",
+    "precio": 22000,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "sw-mortadela",
+    "nombre": "Mortadela",
+    "categoria": "sandwiches",
+    "descripcion": "Mortadela con pistacho, stracciatella y pesto de albahaca.",
+    "precio": 21000,
+    "orden": 4,
+    "disponible": true,
+    "foto": "img/carta/sw-mortadela.webp"
+   },
+   {
+    "id": "sw-pastrami",
+    "nombre": "Hot pastrami",
+    "categoria": "sandwiches",
+    "descripcion": "Pastrami casero, mostaza, queso crema y relish de pepinos agridulces.",
+    "precio": 24000,
+    "orden": 5,
+    "disponible": true,
+    "foto": "img/carta/sw-pastrami.webp"
+   },
+   {
+    "id": "sw-beef",
+    "nombre": "Italian beef",
+    "categoria": "sandwiches",
+    "descripcion": "Carne desmechada, giardinera, alioli ahumado y salsa picante (viene aparte).",
+    "precio": 24000,
+    "orden": 6,
+    "disponible": true,
+    "etiquetas": [
+     "picante"
+    ]
+   },
+   {
+    "id": "sw-atun",
+    "nombre": "Atún",
+    "categoria": "sandwiches",
+    "descripcion": "Especial en pan de sémola. Atún, mostaza dijon, mayonesa, apio, zanahoria, cebolla morada, relish de pepino, lechuga, tomate y alioli de zucchini.",
+    "precio": 18000,
+    "orden": 7,
+    "disponible": true
+   },
+   {
+    "id": "an-polenta",
+    "nombre": "Bastoncitos de polenta",
+    "categoria": "antipasti",
+    "descripcion": "Grillada, con espejo de pomodoro, pesto de albahaca, alioli de zucchini y microgreens.",
+    "precio": 9300,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "an-involtini",
+    "nombre": "Involtini de berenjenas",
+    "categoria": "antipasti",
+    "descripcion": "Berenjenas asadas, ricota con ralladura de limón, pesto de rúcula, kale y castañas.",
+    "precio": 10500,
+    "orden": 2,
+    "disponible": true,
+    "etiquetas": [
+     "veggie"
+    ]
+   },
+   {
+    "id": "an-bocconcino",
+    "nombre": "Bocconcino",
+    "categoria": "antipasti",
+    "descripcion": "Con pesto de albahaca, tomates confitados, rúcula, almendras y syrup.",
+    "precio": 10500,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "an-hummus",
+    "nombre": "Hummus",
+    "categoria": "antipasti",
+    "descripcion": "Cherrys confitados, alcaparras fritas, pan de centeno de masa madre con ciruelas y nueces.",
+    "precio": 10500,
+    "orden": 4,
+    "disponible": true,
+    "foto": "img/carta/an-hummus.webp",
+    "etiquetas": [
+     "veggie"
+    ]
+   },
+   {
+    "id": "an-picada",
+    "nombre": "Picadita di Parma para 2",
+    "categoria": "antipasti",
+    "descripcion": "Prosciutto, bocconcino, parmesano, mortadela con pistachos, tiras de focaccia, aceitunas, cherrys, queso azul, gruyere y queso crema.",
+    "precio": 35000,
+    "orden": 5,
+    "disponible": true,
+    "foto": "img/carta/an-picada.webp",
+    "etiquetas": [
+     "casa"
+    ]
+   },
+   {
+    "id": "pa-medialuna",
+    "nombre": "Medialuna de manteca",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 2700,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "pa-churrinche",
+    "nombre": "Churrinche",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 2400,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "pa-croissant",
+    "nombre": "Croissant",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 3900,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "pa-croissant-almendras",
+    "nombre": "Croissant con crema de almendras",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 6300,
+    "orden": 4,
+    "disponible": true,
+    "foto": "img/carta/pa-croissant-almendras.webp"
+   },
+   {
+    "id": "pa-pain",
+    "nombre": "Pain au chocolat",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 4700,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "pa-danesa",
+    "nombre": "Danesa",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 6200,
+    "orden": 6,
+    "disponible": true
+   },
+   {
+    "id": "pa-chipa",
+    "nombre": "Chipá",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 4700,
+    "orden": 7,
+    "disponible": true
+   },
+   {
+    "id": "pa-lingote",
+    "nombre": "Lingote de limón",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 4700,
+    "orden": 8,
+    "disponible": true
+   },
+   {
+    "id": "pa-roll",
+    "nombre": "Roll de canela",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 5800,
+    "orden": 9,
+    "disponible": true
+   },
+   {
+    "id": "pa-lunette",
+    "nombre": "Galleta Lunette",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 4200,
+    "orden": 10,
+    "disponible": true
+   },
+   {
+    "id": "pa-galleta-limon",
+    "nombre": "Galleta de limón",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 3600,
+    "orden": 11,
+    "disponible": true
+   },
+   {
+    "id": "pa-galleta-tiramisu",
+    "nombre": "Galleta Tiramisú",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 5800,
+    "orden": 12,
+    "disponible": true
+   },
+   {
+    "id": "pa-alfajor-ddl",
+    "nombre": "Alfajor de dulce de leche",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 4500,
+    "orden": 13,
+    "disponible": true
+   },
+   {
+    "id": "pa-alfajor-pistacho",
+    "nombre": "Alfajor de pistacho y frutos rojos",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 6000,
+    "orden": 14,
+    "disponible": true
+   },
+   {
+    "id": "pa-amaretti",
+    "nombre": "Amaretti morbidi",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 2300,
+    "orden": 15,
+    "disponible": true
+   },
+   {
+    "id": "pa-biscotti",
+    "nombre": "Biscotti",
+    "categoria": "pasticceria",
+    "descripcion": "",
+    "precio": 2000,
+    "orden": 16,
+    "disponible": true
+   },
+   {
+    "id": "to-crostata-ricota",
+    "nombre": "Crostata de ricota y dulce de leche",
+    "categoria": "tortas",
+    "descripcion": "",
+    "precio": 8000,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "to-crostata-mermelada",
+    "nombre": "Crostata de mermelada casera",
+    "categoria": "tortas",
+    "descripcion": "",
+    "precio": 5500,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "to-ciambella",
+    "nombre": "Ciambella de limón y arándanos",
+    "categoria": "tortas",
+    "descripcion": "",
+    "precio": 5800,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "to-caprese",
+    "nombre": "Caprese de chocolate",
+    "categoria": "tortas",
+    "descripcion": "Chocolate belga Callebaut.",
+    "precio": 6500,
+    "orden": 4,
+    "disponible": true,
+    "foto": "img/carta/to-caprese.webp"
+   },
+   {
+    "id": "to-caprese-frosting",
+    "nombre": "Caprese con frosting de estación",
+    "categoria": "tortas",
+    "descripcion": "Chocolate Callebaut, mascarpone y fruta de estación.",
+    "precio": 9200,
+    "orden": 5,
+    "disponible": true,
+    "foto": "img/carta/to-caprese-frosting.webp"
+   },
+   {
+    "id": "to-carrot",
+    "nombre": "Carrot cake",
+    "categoria": "tortas",
+    "descripcion": "",
+    "precio": 7000,
+    "orden": 6,
+    "disponible": true
+   },
+   {
+    "id": "to-vasca",
+    "nombre": "Torta vasca con compota de fruta",
+    "categoria": "tortas",
+    "descripcion": "",
+    "precio": 12800,
+    "orden": 7,
+    "disponible": true,
+    "foto": "img/carta/to-vasca.webp"
+   },
+   {
+    "id": "to-tiramisu",
+    "nombre": "Postre tiramisú",
+    "categoria": "tortas",
+    "descripcion": "",
+    "precio": 7200,
+    "orden": 8,
+    "disponible": true
+   },
+   {
+    "id": "to-pavlova",
+    "nombre": "Pavlova",
+    "categoria": "tortas",
+    "descripcion": "",
+    "precio": 8300,
+    "orden": 9,
+    "disponible": true
+   },
+   {
+    "id": "pan-integral",
+    "nombre": "Pan de molde integral con semillas",
+    "categoria": "panes",
+    "descripcion": "Masa madre.",
+    "precio": 12000,
+    "orden": 1,
+    "disponible": true,
+    "foto": "img/carta/pan-integral.webp"
+   },
+   {
+    "id": "pan-semola",
+    "nombre": "Pan de molde de sémola",
+    "categoria": "panes",
+    "descripcion": "",
+    "precio": 12000,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "pan-brioche",
+    "nombre": "Pan de molde brioche",
+    "categoria": "panes",
+    "descripcion": "",
+    "precio": 12000,
+    "orden": 3,
+    "disponible": true,
+    "foto": "img/carta/pan-brioche.webp"
+   },
+   {
+    "id": "pan-centeno",
+    "nombre": "Pan de centeno con ciruelas y nueces",
+    "categoria": "panes",
+    "descripcion": "Masa madre.",
+    "precio": 9500,
+    "orden": 4,
+    "disponible": true,
+    "foto": "img/carta/pan-centeno.webp"
+   },
+   {
+    "id": "br-tostadas",
+    "nombre": "Tostadas con queso crema y mermelada casera",
+    "categoria": "brunch",
+    "descripcion": "Variedad de panes de la casa.",
+    "precio": 8800,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "br-french",
+    "nombre": "French toast con frutas de estación",
+    "categoria": "brunch",
+    "descripcion": "",
+    "precio": 10200,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "br-brioche",
+    "nombre": "Tostado brioche de jamón, queso y mayo",
+    "categoria": "brunch",
+    "descripcion": "Opcional tomate.",
+    "precio": 11000,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "br-medialuna-jyq",
+    "nombre": "Medialuna con jamón y queso",
+    "categoria": "brunch",
+    "descripcion": "",
+    "precio": 6500,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "br-medialuna-pollo",
+    "nombre": "Medialuna con pollo, brie, rúcula y cherrys confitados",
+    "categoria": "brunch",
+    "descripcion": "",
+    "precio": 10500,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "br-avocado",
+    "nombre": "Avocado",
+    "categoria": "brunch",
+    "descripcion": "Pan, huevos revueltos, queso crema y palta.",
+    "precio": 12500,
+    "orden": 6,
+    "disponible": true
+   },
+   {
+    "id": "br-huevos",
+    "nombre": "Huevos revueltos",
+    "categoria": "brunch",
+    "descripcion": "Con cherry, queso crema y tostada de pan integral.",
+    "precio": 10000,
+    "orden": 7,
+    "disponible": true
+   },
+   {
+    "id": "br-fosforito",
+    "nombre": "Fosforito relleno",
+    "categoria": "brunch",
+    "descripcion": "Ver opciones en mostrador.",
+    "precio": 8300,
+    "orden": 8,
+    "disponible": true
+   },
+   {
+    "id": "br-croissant-jyq",
+    "nombre": "Croissant con jamón y queso",
+    "categoria": "brunch",
+    "descripcion": "",
+    "precio": 9500,
+    "orden": 9,
+    "disponible": true
+   },
+   {
+    "id": "br-panino",
+    "nombre": "Panino all'uovo",
+    "categoria": "brunch",
+    "descripcion": "Huevo marinado, aderezo de yogurt natural con eneldo, ralladura de lima y ciboulette en pan brioche.",
+    "precio": 12000,
+    "orden": 10,
+    "disponible": true
+   },
+   {
+    "id": "br-yogurt",
+    "nombre": "Yogurt con granola y frutas de estación",
+    "categoria": "brunch",
+    "descripcion": "",
+    "precio": 10500,
+    "orden": 11,
+    "disponible": true
+   },
+   {
+    "id": "br-chia",
+    "nombre": "Chia pudding con granola y frutas de estación",
+    "categoria": "brunch",
+    "descripcion": "",
+    "precio": 9000,
+    "orden": 12,
+    "disponible": true
+   },
+   {
+    "id": "c-espresso",
+    "nombre": "Espresso",
+    "categoria": "cafe-chico",
+    "descripcion": "1 shot de café intenso. Vaso vidrio.",
+    "precio": 3800,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "c-doble",
+    "nombre": "Espresso doble",
+    "categoria": "cafe-chico",
+    "descripcion": "2 shots. Vaso vidrio.",
+    "precio": 4400,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "c-macchiato",
+    "nombre": "Macchiato",
+    "categoria": "cafe-chico",
+    "descripcion": "2 shots + espuma de leche.",
+    "precio": 4500,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "c-magic",
+    "nombre": "Magic",
+    "categoria": "cafe-chico",
+    "descripcion": "2 shots + leche. Vaso vidrio.",
+    "precio": 5300,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "c-lungo",
+    "nombre": "Café chico o lungo",
+    "categoria": "cafe-chico",
+    "descripcion": "1 shot + agua, más suave.",
+    "precio": 3800,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "c-cortado",
+    "nombre": "Cortado",
+    "categoria": "cafe-chico",
+    "descripcion": "1 shot + leche.",
+    "precio": 4200,
+    "orden": 6,
+    "disponible": true
+   },
+   {
+    "id": "c-affogato",
+    "nombre": "Affogato",
+    "categoria": "cafe-chico",
+    "descripcion": "Helado + café. Vaso vidrio.",
+    "precio": 7200,
+    "orden": 7,
+    "disponible": true
+   },
+   {
+    "id": "c-baileys",
+    "nombre": "Café con Baileys",
+    "categoria": "cafe-chico",
+    "descripcion": "",
+    "precio": 7000,
+    "orden": 8,
+    "disponible": true
+   },
+   {
+    "id": "c-americano",
+    "nombre": "Café doble o americano",
+    "categoria": "cafe-mediano",
+    "descripcion": "Doble shot y agua.",
+    "precio": 5000,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "c-flat",
+    "nombre": "Cortado doble o flat white",
+    "categoria": "cafe-mediano",
+    "descripcion": "Doble espresso y leche.",
+    "precio": 6400,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "c-capuccino",
+    "nombre": "Capuccino",
+    "categoria": "cafe-mediano",
+    "descripcion": "Café con leche, cacao y canela.",
+    "precio": 6200,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "c-matcha",
+    "nombre": "Matcha latte",
+    "categoria": "cafe-mediano",
+    "descripcion": "",
+    "precio": 6600,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "c-submarino",
+    "nombre": "Submarino",
+    "categoria": "cafe-mediano",
+    "descripcion": "",
+    "precio": 5100,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "c-te",
+    "nombre": "Té",
+    "categoria": "cafe-mediano",
+    "descripcion": "",
+    "precio": 4200,
+    "orden": 6,
+    "disponible": true
+   },
+   {
+    "id": "c-te-leche",
+    "nombre": "Té con leche",
+    "categoria": "cafe-mediano",
+    "descripcion": "",
+    "precio": 4700,
+    "orden": 7,
+    "disponible": true
+   },
+   {
+    "id": "c-tisana",
+    "nombre": "Tisana agroecológica",
+    "categoria": "cafe-mediano",
+    "descripcion": "Respira, Sobremesa o Calma.",
+    "precio": 7200,
+    "orden": 8,
+    "disponible": true
+   },
+   {
+    "id": "c-latte",
+    "nombre": "Café con leche o latte",
+    "categoria": "cafe-grande",
+    "descripcion": "Café con leche liviano.",
+    "precio": 6000,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "c-lagrima",
+    "nombre": "Lágrima",
+    "categoria": "cafe-grande",
+    "descripcion": "Mucha leche y poco café.",
+    "precio": 5400,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "c-caramel",
+    "nombre": "Caramel amaretti latte",
+    "categoria": "cafe-grande",
+    "descripcion": "Frío o caliente.",
+    "precio": 6500,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "c-extra",
+    "nombre": "Extra shot de café",
+    "categoria": "cafe-grande",
+    "descripcion": "",
+    "precio": 1400,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "f-iced-latte",
+    "nombre": "Iced latte",
+    "categoria": "cafe-frio",
+    "descripcion": "",
+    "precio": 6300,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "f-tonic",
+    "nombre": "Coffee tonic",
+    "categoria": "cafe-frio",
+    "descripcion": "",
+    "precio": 7000,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "f-tiramisu",
+    "nombre": "Tiramisú iced latte",
+    "categoria": "cafe-frio",
+    "descripcion": "",
+    "precio": 8500,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "f-matcha",
+    "nombre": "Iced matcha latte",
+    "categoria": "cafe-frio",
+    "descripcion": "",
+    "precio": 7000,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "f-frapu",
+    "nombre": "Frapuccino de dulce de leche o chocolate",
+    "categoria": "cafe-frio",
+    "descripcion": "",
+    "precio": 11600,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "f-chocolatada",
+    "nombre": "Chocolatada",
+    "categoria": "cafe-frio",
+    "descripcion": "",
+    "precio": 5000,
+    "orden": 6,
+    "disponible": true
+   },
+   {
+    "id": "f-amaretto",
+    "nombre": "Iced coffee con licor de amaretto",
+    "categoria": "cafe-frio",
+    "descripcion": "",
+    "precio": 9800,
+    "orden": 7,
+    "disponible": true
+   },
+   {
+    "id": "j-naranja",
+    "nombre": "Exprimido de naranja",
+    "categoria": "jugos",
+    "descripcion": "",
+    "precio": 5500,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "j-limonada",
+    "nombre": "Limonada",
+    "categoria": "jugos",
+    "descripcion": "Vaso $4.500 · jarra 1 L $8.500.",
+    "precio": 4500,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "j-detox-naranja",
+    "nombre": "Detox de naranja",
+    "categoria": "jugos",
+    "descripcion": "Zanahoria, naranja, cúrcuma, pimienta, jengibre y limón.",
+    "precio": 6600,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "j-detox-verde",
+    "nombre": "Detox verde",
+    "categoria": "jugos",
+    "descripcion": "Espinaca, apio, manzana, jengibre y limón.",
+    "precio": 6600,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "j-hibiscus",
+    "nombre": "Limonada de hibiscus",
+    "categoria": "jugos",
+    "descripcion": "Vaso $4.800 · jarra 1 L $9.000.",
+    "precio": 4800,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "b-agua",
+    "nombre": "Agua",
+    "categoria": "sin-alcohol",
+    "descripcion": "",
+    "precio": 3900,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "b-soda",
+    "nombre": "Soda 650 cm³",
+    "categoria": "sin-alcohol",
+    "descripcion": "",
+    "precio": 3900,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "b-gaseosa",
+    "nombre": "Gaseosas",
+    "categoria": "sin-alcohol",
+    "descripcion": "",
+    "precio": 4500,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "b-cerveza0",
+    "nombre": "Cerveza 0%",
+    "categoria": "sin-alcohol",
+    "descripcion": "",
+    "precio": 6500,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "b-kombucha",
+    "nombre": "Kombucha",
+    "categoria": "sin-alcohol",
+    "descripcion": "",
+    "precio": 6500,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "a-corona",
+    "nombre": "Cerveza porrón Corona",
+    "categoria": "con-alcohol",
+    "descripcion": "",
+    "precio": 6000,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "a-vino",
+    "nombre": "Copa de vino tinto o blanco",
+    "categoria": "con-alcohol",
+    "descripcion": "",
+    "precio": 6500,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "a-vermu",
+    "nombre": "Vermú artesanal tinto o rosado",
+    "categoria": "con-alcohol",
+    "descripcion": "",
+    "precio": 7500,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "a-aperol",
+    "nombre": "Aperol spritz",
+    "categoria": "con-alcohol",
+    "descripcion": "",
+    "precio": 10500,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "a-cynar",
+    "nombre": "Cynar 70 con tónica o soda",
+    "categoria": "con-alcohol",
+    "descripcion": "",
+    "precio": 9000,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "a-gin",
+    "nombre": "Gin tonic",
+    "categoria": "con-alcohol",
+    "descripcion": "",
+    "precio": 10500,
+    "orden": 6,
+    "disponible": true
+   },
+   {
+    "id": "a-fernet",
+    "nombre": "Fernet",
+    "categoria": "con-alcohol",
+    "descripcion": "",
+    "precio": 9000,
+    "orden": 7,
+    "disponible": true
+   },
+   {
+    "id": "n-polenta",
+    "nombre": "Bastoncitos de polenta grillada",
+    "categoria": "noche-antipasti",
+    "descripcion": "Con espejo de pomodoro, pesto de albahaca, parmesano y aceto reducción.",
+    "precio": 9300,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "n-gildas",
+    "nombre": "Gildas (3 pinchos)",
+    "categoria": "noche-antipasti",
+    "descripcion": "Pepinillo, prosciutto y aceituna · morrón asado, corazón de alcaucil y bocconcino · tomates secos, anchoas y aceituna.",
+    "precio": 11000,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "n-arancini",
+    "nombre": "Arancini",
+    "categoria": "noche-antipasti",
+    "descripcion": "Croqueta de arroz carnaroli y azafrán, pesto de rúcula y kale.",
+    "precio": 11000,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "n-nino",
+    "nombre": "Nostro Nino Bergese",
+    "categoria": "noche-pastas",
+    "descripcion": "Ravioli de carne braseada y cebolla caramelizada, con corazón de stracciatella. Salsa demi glas y boniato paille.",
+    "precio": 32000,
+    "orden": 1,
+    "disponible": true,
+    "foto": "img/carta/n-nino.webp"
+   },
+   {
+    "id": "n-pappardelle",
+    "nombre": "Pappardelle rellenos",
+    "categoria": "noche-pastas",
+    "descripcion": "Peras asadas, ricota y queso azul. Manteca noisette, eneldo y frutos secos.",
+    "precio": 28000,
+    "orden": 2,
+    "disponible": true,
+    "foto": "img/carta/n-pappardelle.webp"
+   },
+   {
+    "id": "n-cappellacci",
+    "nombre": "Cappellacci",
+    "categoria": "noche-pastas",
+    "descripcion": "Masa de espinaca rellena de hongos, puerro y ricota. Crema alimonada.",
+    "precio": 28000,
+    "orden": 3,
+    "disponible": true,
+    "foto": "img/carta/n-cappellacci.webp"
+   },
+   {
+    "id": "n-raviolis",
+    "nombre": "Raviolis",
+    "categoria": "noche-pastas",
+    "descripcion": "Mortadela con pistachos asada, ricota, queso crema y ralladura de naranja. Crema de parmesano y pimienta recién molida.",
+    "precio": 30000,
+    "orden": 4,
+    "disponible": true
+   },
+   {
+    "id": "n-malfatti",
+    "nombre": "Malfatti",
+    "categoria": "noche-pastas",
+    "descripcion": "Boniato, ricota y parmesano. Fondue de quesos.",
+    "precio": 26000,
+    "orden": 5,
+    "disponible": true
+   },
+   {
+    "id": "n-fettuccini",
+    "nombre": "Fettuccini verdes",
+    "categoria": "noche-pastas",
+    "descripcion": "Pasta al huevo con salsa pomodoro, bocconcini y hojas de albahaca.",
+    "precio": 25000,
+    "orden": 6,
+    "disponible": true
+   },
+   {
+    "id": "n-pastrami",
+    "nombre": "Hot pastrami",
+    "categoria": "noche-bonus",
+    "descripcion": "Sándwich de pastrami con relish de pepino, aderezo ruso y fondue de queso. Con papitas horneadas.",
+    "precio": 24000,
+    "orden": 1,
+    "disponible": true
+   },
+   {
+    "id": "n-ensalada",
+    "nombre": "Ensalada di Parma",
+    "categoria": "noche-bonus",
+    "descripcion": "Rúcula, bocconcini, escamas de parmesano, fruta de estación, mix de frutos secos y reducción de aceto.",
+    "precio": 18000,
+    "orden": 2,
+    "disponible": true
+   },
+   {
+    "id": "caja-navidena",
+    "nombre": "Caja navideña",
+    "categoria": "navidad",
+    "descripcion": "Pan dulce de 250 g, pan dulce relleno con ganache de pistacho de 250 g, 3 galletitas de jengibre, turrón con almendras y pistachos, garrapiñada de nuez pecán, 3 biscotti triple chocolate y 3 amaretti.",
+    "precio": null,
+    "orden": 1,
+    "disponible": true,
+    "foto": "img/carta/caja-navidena.webp",
+    "etiquetas": [
+     "casa"
+    ]
+   },
+   {
+    "id": "pan-dulce-medio",
+    "nombre": "Pan dulce de ½ kg",
+    "categoria": "navidad",
+    "descripcion": "Almendras, nueces pecán, naranjitas confitadas caseras y pasas de uva rubias y negras. Sin aditivos ni conservantes.",
+    "precio": null,
+    "orden": 2,
+    "disponible": true,
+    "foto": "img/carta/pan-dulce.webp"
+   },
+   {
+    "id": "pan-dulce-cuarto",
+    "nombre": "Pan dulce de ¼ kg",
+    "categoria": "navidad",
+    "descripcion": "Almendras, nueces pecán, naranjitas confitadas caseras y pasas de uva rubias y negras.",
+    "precio": null,
+    "orden": 3,
+    "disponible": true
+   },
+   {
+    "id": "pan-dulce-pistacho",
+    "nombre": "Pan dulce de ¼ kg relleno de pistacho",
+    "categoria": "navidad",
+    "descripcion": "Con ganache de pistachos.",
+    "precio": null,
+    "orden": 4,
+    "disponible": true,
+    "foto": "img/carta/pan-dulce-pistacho.webp"
+   }
+  ]
+ }
+}
