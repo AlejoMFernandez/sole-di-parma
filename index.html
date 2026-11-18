@@ -23,19 +23,19 @@
   (function(){var d=document.documentElement;
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('con-intro');})();
 </script>
-<link rel="preload" as="image" href="img/sol-manana-1000.webp" imagesrcset="img/sol-manana-560.webp 560w, img/sol-manana-1000.webp 1000w" imagesizes="(min-width:768px) 32vh, 60vw" fetchpriority="high">
 <link rel="preload" href="fonts/londrina-solid-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/literata-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fuentes.css?v=2">
+<link rel="preload" as="image" href="img/i-lectora.svg" fetchpriority="high">
+<link rel="preload" as="image" href="img/logo.svg" fetchpriority="high">
 <link rel="stylesheet" href="kit/kit.css?v=1">
 <link rel="stylesheet" href="css/sole.css?v=2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Bakery","name":"Sole di Parma","address":{"@type":"PostalAddress","streetAddress":"Eduardo Madero 537","addressLocality":"Tigre","addressRegion":"Buenos Aires","postalCode":"1648","addressCountry":"AR"},"telephone":"+5491136698412","servesCuisine":"Italiana","geo":{"@type":"GeoCoordinates","latitude":-34.4166101,"longitude":-58.5848826},"openingHours":["Mo-Th 08:30-20:00","Su 08:30-20:00","Fr-Sa 08:30-23:00"]}</script>
 </head>
 <body>
 
-<!-- INTRO: el sol se dibuja donde va a estar el plato del hero, el logo se escribe arriba y el sol se abre -->
+<!-- INTRO: el logo se escribe justo donde queda en el hero; después baja el toldo y aparece la vereda -->
 <div class="intro" aria-hidden="true">
-  <svg class="intro-sol"><circle class="aro" pathLength="1"/><g class="rayos-i"></g></svg>
   <img class="intro-logo" src="img/logo.svg" alt="" width="2976" height="888">
 </div>
 
@@ -63,45 +63,25 @@
 
 <main id="top">
 
-<!-- ============ HERO · SOLE CHE SORGE ============ -->
-<section class="ha" id="hero" aria-label="Sole di Parma, de la mañana a la noche">
+<!-- ============ HERO · LA VEREDA DE SOLE ============ -->
+<section class="ha" id="hero" aria-label="Sole di Parma, pasticceria y focacceria en Tigre">
   <div class="ha-stage">
-    <div class="ha-cielo" aria-hidden="true"></div>
+    <div class="toldo" aria-hidden="true"></div>
     <header class="ha-top">
-      <h1 class="ha-logo"><img src="img/logo.svg" alt="Sole di Parma · Pasticceria &amp; Focacceria" width="2976" height="888"></h1>
+      <h1 class="ha-logo"><img src="img/logo.svg" alt="Sole di Parma · Pasticceria &amp; Focacceria" width="2976" height="888" fetchpriority="high"></h1>
       <p class="estado"><span class="punto"></span><span class="estado-t">Todos los días desde las 8:30 hs</span></p>
     </header>
 
-    <div class="ha-sol" aria-hidden="true">
-      <svg class="ha-rayos" viewBox="-100 -100 200 200"><g class="rayos-a"></g></svg>
-      <div class="ha-disco">
-        <img class="m0 on" src="img/sol-manana-1000.webp" srcset="img/sol-manana-560.webp 560w, img/sol-manana-1000.webp 1000w" sizes="(min-width:768px) 32vh, 60vw" alt="" width="1000" height="1000" fetchpriority="high">
-        <img class="m1" data-src="img/sol-mediodia-1000.webp" data-srcset="img/sol-mediodia-560.webp 560w, img/sol-mediodia-1000.webp 1000w" sizes="(min-width:768px) 32vh, 60vw" alt="" width="1000" height="1000">
-        <img class="m2" data-src="img/sol-tarde-1000.webp" data-srcset="img/sol-tarde-560.webp 560w, img/sol-tarde-1000.webp 1000w" sizes="(min-width:768px) 32vh, 60vw" alt="" width="1000" height="1000">
-        <img class="m3" data-src="img/sol-noche-1000.webp" data-srcset="img/sol-noche-560.webp 560w, img/sol-noche-1000.webp 1000w" sizes="(min-width:768px) 32vh, 60vw" alt="" width="1000" height="1000">
-      </div>
-    </div>
-
-    <div class="ha-suelo" aria-hidden="true">
-      <img class="il-planta" src="img/i-planta.svg" alt="" width="984" height="1952">
-      <img class="il-gato" src="img/i-gato.svg" alt="" width="532" height="816">
-      <img class="il-lectora" src="img/i-lectora.svg" alt="" width="2252" height="2548">
+    <div class="ha-escena" aria-hidden="true">
+      <div class="sol-sale"><div class="ss"><svg class="ss-rayos" viewBox="-100 -100 200 200"><g class="rayos-a"></g></svg><div class="ss-disco"></div></div></div>
+      <div class="il il-planta" style="--i:0"><img class="fij" src="img/i-planta.svg" alt="" width="984" height="1952"><img class="mov" src="img/i-planta.svg" alt="" width="984" height="1952"></div>
+      <div class="il il-gato" style="--i:1"><img class="fij" src="img/i-gato.svg" alt="" width="532" height="816"><img class="mov" src="img/i-gato.svg" alt="" width="532" height="816"></div>
+      <div class="il il-lectora" style="--i:2"><img class="fij" fetchpriority="high" src="img/i-lectora.svg" alt="" width="2252" height="2548"><img class="diario" src="img/i-lectora.svg" alt="" width="2252" height="2548"><img class="cart" src="img/i-lectora.svg" alt="" width="2252" height="2548"><svg class="vapor" viewBox="0 0 40 60"><path d="M12 58 C 2 44, 22 36, 12 20 S 16 4, 14 0"/><path d="M26 58 C 16 44, 36 36, 26 20 S 30 4, 28 0"/></svg></div>
       <svg class="horizonte" viewBox="0 0 1000 10" preserveAspectRatio="none"><path d="M0 5 C 120 3, 260 7, 400 5 S 700 3, 1000 5" pathLength="1"/></svg>
     </div>
 
     <div class="ha-pie">
-      <nav class="ha-horas" aria-label="Momentos del día">
-        <button type="button" data-m="0" class="on" aria-pressed="true"><b>8:30</b><span>Mañana</span></button>
-        <button type="button" data-m="1" aria-pressed="false"><b>13:00</b><span>Mediodía</span></button>
-        <button type="button" data-m="2" aria-pressed="false"><b>17:00</b><span>Merienda</span></button>
-        <button type="button" data-m="3" aria-pressed="false"><b>20:00</b><span>Vie y sáb</span></button>
-      </nav>
-      <div class="ha-cap" aria-live="polite">
-        <div class="cap on" data-m="0"><h2>Buongiorno</h2><p>Medialunas de manteca, croissants y café de taza chica a taza grande.</p></div>
-        <div class="cap" data-m="1"><h2>Focacce al corte</h2><p>Masa madre y harina orgánica. Promo 2&nbsp;×&nbsp;$11.000.</p></div>
-        <div class="cap" data-m="2"><h2>Merenda</h2><p>Caprese, crostatas, torta vasca y pavlova del mostrador.</p></div>
-        <div class="cap" data-m="3"><h2>Notte di pasta</h2><p>Pastas 100% sémola y música en vivo, de 20:00 a 23:00 hs.</p></div>
-      </div>
+      <p class="ha-info"><b>Todos los días de 8:30 a 20:00 hs</b> · vie y sáb, noches de pasta hasta las 23:00 hs</p>
       <div class="ha-cta">
         <a class="b-toldo" href="#focacce"><span>Pedí para retirar</span></a>
         <a class="b-trazo" href="#carta">Ver la carta<svg viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><path d="M1 5 C 30 2, 60 7, 99 3" pathLength="1"/></svg></a>

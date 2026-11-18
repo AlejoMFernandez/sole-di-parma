@@ -69,49 +69,14 @@ function abrirPagina() {
   setTimeout(diferidas, 700);
 }
 function armarIntro() {
-  const intro = $('.intro'); if (!intro) return;
-  const disco = $('.ha-disco').getBoundingClientRect();
-  const logo = $('.ha-logo img').getBoundingClientRect();
-  const rayosR = $('.ha-rayos').getBoundingClientRect();
-  const W = innerWidth, H = innerHeight;
-  const cx = disco.left + disco.width / 2, cy = disco.top + disco.height / 2, r = disco.width / 2 + 3;
-  intro.style.setProperty('--ox', cx + 'px'); intro.style.setProperty('--oy', cy + 'px'); intro.style.setProperty('--rd', (disco.width / 2) + 'px');
-  const svg = $('.intro-sol'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  const aro = $('.aro', svg); aro.setAttribute('cx', cx); aro.setAttribute('cy', cy); aro.setAttribute('r', r);
-  // los mismos rayos del hero, en píxeles: cuando la intro se va, quedan exactamente donde estaban
-  const k = rayosR.width / 200, ox = rayosR.left + rayosR.width / 2, oy = rayosR.top + rayosR.height / 2;
-  const g = $('.rayos-i', svg);
-  pintarRayos(g, RAYOS_HERO.map(([a, b, c, e]) => [ox + a * k, oy + b * k, ox + c * k, oy + e * k]));
-  $$('line', g).forEach((l, i) => { l.style.animationDelay = (0.32 + i * 0.022) + 's'; l.style.strokeWidth = (3.2 * k).toFixed(2); });
-  const il = $('.intro-logo'); Object.assign(il.style, { left: logo.left + 'px', top: logo.top + 'px', width: logo.width + 'px' });
+  const il = $('.intro-logo'), logo = $('.ha-logo img').getBoundingClientRect();
+  if (il) Object.assign(il.style, { left: logo.left + 'px', top: logo.top + 'px', width: logo.width + 'px' });
 }
-/* el sol se apoya siempre en el horizonte: las puntas de abajo de los rayos quedan justo arriba de la línea
-   y las de arriba no tocan el estado; si no entra, el sol se achica */
-function ubicarSol() {
-  const sol = $('.ha-sol'), st = $('.ha-stage'), top = $('.ha-top'); if (!sol || !st) return;
-  sol.style.removeProperty('--d'); sol.style.removeProperty('top'); top.style.marginTop = '0px';
-  const S = st.getBoundingClientRect(), dCss = sol.offsetWidth;
-  const k = parseFloat(getComputedStyle($('.ha-rayos')).width) / dCss / 2 || 0.8;
-  const T = top.getBoundingClientRect(), t0 = T.top - S.top, th = T.height;
-  const piso = $('.horizonte').getBoundingClientRect().top - S.top - 6;
-  const gap = celu() ? 10 : 18;
-  // logo y sol forman un solo grupo, centrado en el alto que queda arriba del horizonte
-  const dd = Math.max(120, Math.min(dCss, (piso - t0 - th - gap) / (2 * k)));
-  const grupo = th + gap + 2 * k * dd, holgura = Math.max(0, piso - t0 - grupo);
-  const mt = holgura / 2;
-  top.style.marginTop = mt + 'px';
-  sol.style.setProperty('--d', dd + 'px');
-  sol.style.top = (t0 + mt + th + gap + k * dd) + 'px';
-}
-ubicarSol();
-addEventListener('resize', ubicarSol, { passive: true });
 if (d.classList.contains('con-intro')) {
   d.classList.add('desde-intro');
   armarIntro();
-  const hero = $('.ha-disco img.on');
   const espera = Promise.all([
     document.fonts ? document.fonts.ready : 0,
-    hero && !hero.complete ? new Promise((r) => { hero.addEventListener('load', r, { once: true }); hero.addEventListener('error', r, { once: true }); }) : 0,
     new Promise((r) => setTimeout(r, celu() ? 700 : 1300)),
   ]);
   Promise.race([espera, new Promise((r) => setTimeout(r, celu() ? 1150 : 2000))]).then(abrirPagina);
@@ -124,25 +89,14 @@ $$('.rv').forEach((el) => io.observe(el));
 $$('.ha-top > *, .ha-pie > *').forEach((el, i) => el.style.setProperty('--d', i));
 
 /* =========================================================
-   HERO: el día con los botones
+   HERO: la vereda (estática, sin scroll ni botones)
    ========================================================= */
 const ha = $('.ha');
 {
-  const imgs = $$('.ha-disco img'), caps = $$('.cap'), horas = $$('.ha-horas button'), rayosEl = $('.ha-rayos');
-  let m = -1, tick = false;
-  const set = (n) => {
-    if (n === m) return; m = n; ha.dataset.m = n;
-    imgs.forEach((im, i) => im.classList.toggle('on', i === n));
-    caps.forEach((c, i) => c.classList.toggle('on', i === n));
-    horas.forEach((b, i) => { b.classList.toggle('on', i === n); b.setAttribute('aria-pressed', i === n); });
-    $('meta[name=theme-color]').content = n === 3 ? '#1F3E8C' : '#FBF3EA';
-    if (n > 0) diferidas();
-  };
+  let tick = false;
   const upd = () => { tick = false; d.classList.toggle('en-hero', ha.getBoundingClientRect().bottom > innerHeight * .6); };
   addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
-  // el día se pasa con los botones, no con el scroll: el que quiere lo mira y el que no, sigue de largo
-  horas.forEach((b, i) => b.addEventListener('click', () => { set(i); rayosEl.style.setProperty('--giro', (i * 30) + 'deg'); }));
-  set(0); upd();
+  upd();
 }
 
 /* =========================================================
