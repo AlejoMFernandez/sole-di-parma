@@ -88,17 +88,20 @@ function armarIntro() {
 /* el sol se apoya siempre en el horizonte: las puntas de abajo de los rayos quedan justo arriba de la línea
    y las de arriba no tocan el estado; si no entra, el sol se achica */
 function ubicarSol() {
-  const sol = $('.ha-sol'), st = $('.ha-stage'); if (!sol || !st) return;
-  sol.style.removeProperty('--d'); sol.style.removeProperty('top');
-  const S = st.getBoundingClientRect(), dCss = sol.offsetWidth, yCss = sol.getBoundingClientRect().top - S.top + dCss / 2;
+  const sol = $('.ha-sol'), st = $('.ha-stage'), top = $('.ha-top'); if (!sol || !st) return;
+  sol.style.removeProperty('--d'); sol.style.removeProperty('top'); top.style.marginTop = '0px';
+  const S = st.getBoundingClientRect(), dCss = sol.offsetWidth;
   const k = parseFloat(getComputedStyle($('.ha-rayos')).width) / dCss / 2 || 0.8;
-  const techo = $('.ha-top').getBoundingClientRect().bottom - S.top + 14;
+  const T = top.getBoundingClientRect(), t0 = T.top - S.top, th = T.height;
   const piso = $('.horizonte').getBoundingClientRect().top - S.top - 6;
-  const dMax = (piso - techo) / (2 * k);
-  const dd = Math.max(120, Math.min(dCss, dMax));
+  const gap = celu() ? 10 : 18;
+  // logo y sol forman un solo grupo, centrado en el alto que queda arriba del horizonte
+  const dd = Math.max(120, Math.min(dCss, (piso - t0 - th - gap) / (2 * k)));
+  const grupo = th + gap + 2 * k * dd, holgura = Math.max(0, piso - t0 - grupo);
+  const mt = holgura / 2;
+  top.style.marginTop = mt + 'px';
   sol.style.setProperty('--d', dd + 'px');
-  // en el celu queda donde estaba (más arriba, sin pisar las ilustraciones) si ya no toca la línea
-  sol.style.top = (celu() ? Math.min(yCss, piso - k * dd) : piso - k * dd) + 'px';
+  sol.style.top = (t0 + mt + th + gap + k * dd) + 'px';
 }
 ubicarSol();
 addEventListener('resize', ubicarSol, { passive: true });
@@ -121,7 +124,7 @@ $$('.rv').forEach((el) => io.observe(el));
 $$('.ha-top > *, .ha-pie > *').forEach((el, i) => el.style.setProperty('--d', i));
 
 /* =========================================================
-   HERO: el día con el scroll
+   HERO: el día con los botones
    ========================================================= */
 const ha = $('.ha');
 {
@@ -135,19 +138,10 @@ const ha = $('.ha');
     $('meta[name=theme-color]').content = n === 3 ? '#1F3E8C' : '#FBF3EA';
     if (n > 0) diferidas();
   };
-  const upd = () => {
-    tick = false;
-    const tot = ha.offsetHeight - innerHeight; const p = Math.min(1, Math.max(0, -ha.getBoundingClientRect().top / tot));
-    set(Math.min(3, Math.floor(p * 4 * .999)));
-    rayosEl.style.setProperty('--giro', (p * 120) + 'deg');
-    d.classList.toggle('en-hero', ha.getBoundingClientRect().bottom > innerHeight * .6);
-  };
+  const upd = () => { tick = false; d.classList.toggle('en-hero', ha.getBoundingClientRect().bottom > innerHeight * .6); };
   addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
-  addEventListener('resize', upd, { passive: true });
-  horas.forEach((b, i) => b.addEventListener('click', () => {
-    const tot = ha.offsetHeight - innerHeight;
-    scrollTo({ top: ha.offsetTop + tot * (i + .5) / 4, behavior: reduce ? 'auto' : 'smooth' });
-  }));
+  // el día se pasa con los botones, no con el scroll: el que quiere lo mira y el que no, sigue de largo
+  horas.forEach((b, i) => b.addEventListener('click', () => { set(i); rayosEl.style.setProperty('--giro', (i * 30) + 'deg'); }));
   set(0); upd();
 }
 
