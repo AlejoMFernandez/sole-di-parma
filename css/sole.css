@@ -152,8 +152,8 @@ main > section{overflow-x:clip}
 .il-planta .mov{clip-path:inset(0 0 41% 0);transform-origin:50% 60%}
 .il-planta .fij{clip-path:inset(59% 0 0 0)}
 /* el gato mueve la cola entera, desde donde nace */
-.il-gato .mov{clip-path:polygon(0 33%,28.5% 33%,28.5% 80.6%,0 80.6%);transform-origin:26.5% 80.3%}
-.il-gato .fij{clip-path:polygon(0 0,100% 0,100% 100%,0 100%,0 80.6%,28.5% 80.6%,28.5% 33%,0 33%)}
+.il-gato .mov{clip-path:polygon(0 33%,28.5% 33%,28.5% 82.5%,0 82.5%);transform-origin:19% 80.5%}
+.il-gato .fij{clip-path:polygon(0 0,100% 0,100% 100%,0 100%,0 78.5%,28.5% 78.5%,28.5% 33%,0 33%)}
 /* la señora da vuelta el diario y la cartera se hamaca */
 .il-lectora .diario{clip-path:polygon(24% 0,72% 0,72% 44%,24% 44%);transform-origin:48% 44%}
 .il-lectora .cart{clip-path:polygon(80% 30%,100% 30%,100% 78%,80% 78%);transform-origin:87% 31%}
@@ -170,7 +170,7 @@ main > section{overflow-x:clip}
   .ss-rayos{animation:gira 90s linear infinite}
 }
 @keyframes hojas{0%,100%{rotate:-2.6deg}50%{rotate:2.6deg}}
-@keyframes cola{0%,100%{rotate:-6deg}50%{rotate:7deg}}
+@keyframes cola{0%,100%{rotate:-4deg}50%{rotate:5deg}}
 @keyframes diario{0%,70%,100%{rotate:0deg;scale:1}78%{rotate:-2.5deg;scale:1 .97}86%{rotate:1deg}}
 @keyframes cartera{0%,100%{rotate:-6deg}50%{rotate:6deg}}
 @keyframes vapor{from{stroke-dashoffset:80;opacity:0}30%{opacity:1}to{stroke-dashoffset:0;opacity:0}}
