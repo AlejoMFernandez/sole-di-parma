@@ -326,20 +326,41 @@ const GRUPOS = [
 const PEDIBLES = new Set(['focaccias', 'sandwiches', 'antipasti', 'pasticceria', 'tortas', 'panes']);
 let gi = 0, si = 0;
 const catPor = (id) => CATS.find((c) => c.id === id);
-function htmlCat(cid) {
-  const c = catPor(cid); if (!c) return '';
-  const ps = PRODS.filter((p) => p.categoria === cid && p.disponible !== false).sort((a, b) => (a.orden || 0) - (b.orden || 0));
+const prodsDe = (cid) => PRODS.filter((p) => p.categoria === cid && p.disponible !== false).sort((a, b) => (a.orden || 0) - (b.orden || 0));
+function htmlItems(cid, ps) {
   const ped = PEDIBLES.has(cid);
-  return `<div class="cat"><h3>${esc(c.nombre.replace(/^Café · /, 'Café · '))}</h3>${c.bajada ? `<p class="cat-b">${esc(c.bajada)}</p>` : ''}<ul role="list">${ps.map((p) => `
+  return ps.map((p) => `
     <li class="it${p.foto ? ' con-foto' : ''}${ped ? '' : ' sin-q'}">
       ${th(p)}
       <div><p class="it-l"><span>${esc(p.nombre)}</span><i></i><b>${plata(p.precio)}</b></p>${p.descripcion ? `<p class="it-d">${esc(p.descripcion)}</p>` : ''}</div>
       ${ped ? `<div class="it-q">${qty(p.id)}</div>` : ''}
-    </li>`).join('')}</ul></div>`;
+    </li>`).join('');
 }
+function htmlCat(cid, ps = prodsDe(cid), sigue = false) {
+  const c = catPor(cid); if (!c) return '';
+  return `<div class="cat"><h3>${esc(c.nombre)}${sigue ? ' <small>(sigue)</small>' : ''}</h3>${c.bajada && !sigue ? `<p class="cat-b">${esc(c.bajada)}</p>` : ''}<ul role="list">${htmlItems(cid, ps)}</ul></div>`;
+}
+/* la hoja muestra como mucho POR_HOJA productos: si una sección tiene más, se pasa de hoja con las flechitas,
+   así la carta mide siempre lo mismo, tenga los productos que tenga */
+const porHoja = () => (celu() ? 5 : innerHeight < 760 ? 8 : 10);
+function hojasDe(cats) {
+  const n = porHoja(), hojas = []; let actual = [], cuenta = 0;
+  cats.forEach((cid) => {
+    const ps = prodsDe(cid); let i = 0;
+    while (i < ps.length) {
+      if (cuenta === n) { hojas.push(actual); actual = []; cuenta = 0; }
+      const tramo = ps.slice(i, i + (n - cuenta));
+      actual.push([cid, tramo, i > 0]); cuenta += tramo.length; i += tramo.length;
+    }
+  });
+  if (actual.length) hojas.push(actual);
+  return hojas.length ? hojas : [[]];
+}
+const htmlHoja = (h) => h.map(([cid, ps, sigue]) => htmlCat(cid, ps, sigue)).join('');
+let hi = 0;
 const porSub = (g) => g.cats.length > (celu() ? 1 : 2);
 const visiblesCarta = (g) => (porSub(g) ? [g.cats[si]] : g.cats);
-function htmlGrupo(g) { return visiblesCarta(g).map(htmlCat).join(''); }
+
 function pintarCarta() {
   if (!CATS.length) return;
   const gr = $('#grupos'), sb = $('#subs'), cuerpo = $('#hoja-cuerpo');
@@ -351,9 +372,13 @@ function pintarCarta() {
   const tmp = document.createElement('div'); tmp.className = 'hoja-cuerpo';
   tmp.style.cssText = `position:absolute;visibility:hidden;min-height:0;width:${cuerpo.clientWidth}px`;
   cuerpo.parentNode.appendChild(tmp); let max = 0;
-  GRUPOS.forEach((G) => { const partes = porSub(G) ? G.cats.map((c) => [c]) : [G.cats]; partes.forEach((cs) => { tmp.innerHTML = cs.map(htmlCat).join(''); max = Math.max(max, tmp.offsetHeight); }); });
+  GRUPOS.forEach((G) => { const partes = porSub(G) ? G.cats.map((c) => [c]) : [G.cats]; partes.forEach((cs) => hojasDe(cs).forEach((h) => { tmp.innerHTML = htmlHoja(h); max = Math.max(max, tmp.offsetHeight); })); });
   tmp.remove(); cuerpo.style.setProperty('--hc-h', max + 'px');
-  cuerpo.innerHTML = htmlGrupo(g); marcarCarga(cuerpo);
+  const hojas = hojasDe(visiblesCarta(g)); hi = Math.min(hi, hojas.length - 1);
+  cuerpo.innerHTML = htmlHoja(hojas[hi]); marcarCarga(cuerpo);
+  const hp = $('#hojas'); hp.style.visibility = hojas.length > 1 ? 'visible' : 'hidden';
+  $('.hp-n', hp).textContent = `Hoja ${hi + 1} de ${hojas.length}`;
+  $('[data-h="-1"]', hp).disabled = hi === 0; $('[data-h="1"]', hp).disabled = hi === hojas.length - 1;
   const [ant, sig] = $$('.pag');
   ant.disabled = gi === 0; sig.disabled = gi === GRUPOS.length - 1;
   $('em', ant).textContent = GRUPOS[gi - 1]?.n || ''; $('em', sig).textContent = GRUPOS[gi + 1]?.n || '';
@@ -362,15 +387,16 @@ function pintarCarta() {
 }
 pintores.push(pintarCarta);
 function irGrupo(i, foco) {
-  gi = Math.max(0, Math.min(GRUPOS.length - 1, i)); si = 0; pintarCarta();
+  gi = Math.max(0, Math.min(GRUPOS.length - 1, i)); si = 0; hi = 0; pintarCarta();
   const b = $(`#grupos [data-g="${gi}"]`); b?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' });
   if (foco) b?.focus({ preventScroll: true });
 }
 $('#grupos').addEventListener('click', (e) => { const b = e.target.closest('[data-g]'); if (b) irGrupo(+b.dataset.g); });
-$('#subs').addEventListener('click', (e) => { const b = e.target.closest('[data-s]'); if (!b) return; si = +b.dataset.s; pintarCarta(); });
+$('#subs').addEventListener('click', (e) => { const b = e.target.closest('[data-s]'); if (!b) return; si = +b.dataset.s; hi = 0; pintarCarta(); });
+$('#hojas').addEventListener('click', (e) => { const b = e.target.closest('[data-h]'); if (!b || b.disabled) return; hi += +b.dataset.h; pintarCarta(); });
 $$('.pag').forEach((b) => b.addEventListener('click', () => { irGrupo(gi + +b.dataset.pag); $('#carta').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }));
 let anchoAnt = innerWidth;
-addEventListener('resize', () => { if ((anchoAnt < 768) !== (innerWidth < 768) || Math.abs(anchoAnt - innerWidth) > 60) { anchoAnt = innerWidth; si = 0; pintarCarta(); pintarNoche(); } }, { passive: true });
+addEventListener('resize', () => { if ((anchoAnt < 768) !== (innerWidth < 768) || Math.abs(anchoAnt - innerWidth) > 60) { anchoAnt = innerWidth; si = 0; hi = 0; pintarCarta(); pintarNoche(); } }, { passive: true });
 
 /* =========================================================
    NAVIDAD: pan dulce y caja por encargo
